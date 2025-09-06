@@ -10,10 +10,11 @@ st.set_page_config(
     initial_sidebar_state="auto",
 )
 
-# Load the Keras model (.h5 file)
+# Load the standard Keras model (.h5 file)
 import os
+print("TensorFlow version:", tf.__version__)
 MODEL_PATH = os.path.join(os.path.dirname(__file__), 'fashion_mnist_model.h5')
-model = tf.keras.models.load_model(MODEL_PATH)
+model = tf.keras.models.load_model(MODEL_PATH, compile=False)
 
 def predict_image(model, image):
     img = image.convert('L').resize((28, 28))
