@@ -1,8 +1,8 @@
-
 import streamlit as st
 import numpy as np
 import tensorflow as tf
 from PIL import Image
+import os
 
 st.set_page_config(
     page_title="Fashion MNIST Classifier",
@@ -10,9 +10,7 @@ st.set_page_config(
     initial_sidebar_state="auto",
 )
 
-# Load the standard Keras model (.h5 file)
-import os
-print("TensorFlow version:", tf.__version__)
+# Load the model
 MODEL_PATH = os.path.join(os.path.dirname(__file__), 'fashion_mnist_model.h5')
 model = tf.keras.models.load_model(MODEL_PATH, compile=False)
 
@@ -27,7 +25,6 @@ class_names = [
     'T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat',
     'Sandal', 'Shirt', 'Sneaker', 'Bag', 'Ankle boot'
 ]
-
 
 st.title('Fashion MNIST Image Classifier')
 st.write('Upload a fashion item image.')
