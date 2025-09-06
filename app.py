@@ -10,21 +10,18 @@ st.set_page_config(
     initial_sidebar_state="auto",
 )
 
-def load_tflite_model(model_path):
-    interpreter = tf.lite.Interpreter(model_path=model_path)
-    interpreter.allocate_tensors()
-    return interpreter
 
-def predict_image(interpreter, image):
-    input_details = interpreter.get_input_details()
-    output_details = interpreter.get_output_details()
+# Load the Keras model (.keras file)
+import os
+MODEL_PATH = os.path.join(os.path.dirname(__file__), 'fashion_mnist_model.keras')
+model = tf.keras.models.load_model(MODEL_PATH)
+
+def predict_image(model, image):
     img = image.convert('L').resize((28, 28))
     img_array = np.array(img, dtype=np.float32) / 255.0
     img_array = img_array.reshape(1, 28, 28, 1)
-    interpreter.set_tensor(input_details[0]['index'], img_array)
-    interpreter.invoke()
-    output = interpreter.get_tensor(output_details[0]['index'])
-    return np.argmax(output), output[0]
+    preds = model.predict(img_array)
+    return np.argmax(preds), preds[0]
 
 class_names = [
     'T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat',
@@ -46,10 +43,7 @@ if uploaded_file:
         st.write('')
         if st.button('Classify Image', use_container_width=True):
             with st.spinner('Classifying...'):
-                interpreter = load_tflite_model('fashion_mnist_model_quantized.tflite')
-                pred_class, pred_probs = predict_image(interpreter, image)
+                pred_class, pred_probs = predict_image(model, image)
                 st.success(f'Prediction: **{class_names[pred_class]}**')
-                st.write('Class Probabilities:')
-                st.bar_chart(pred_probs)
         else:
             st.info('Click the button to classify the image.')
