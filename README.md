@@ -1,6 +1,7 @@
+
 # Fashion MNIST Image Classifier
 
-A simple web app for classifying fashion item images using a quantized neural network trained on the Fashion MNIST dataset. Built with Streamlit and TensorFlow Lite.
+A simple web app for classifying fashion item images using a Convolutional Neural Network (CNN) trained on the Fashion MNIST dataset. Built with Streamlit and TensorFlow.
 
 ## Features
 - Upload any image of a fashion item
@@ -9,7 +10,7 @@ A simple web app for classifying fashion item images using a quantized neural ne
 - Displays prediction and class probabilities
 
 ## Demo
-![Demo Screenshot](demo_screenshot.png)
+Watch the demo video on YouTube: [Fashion MNIST CNN Web App Demo](https://youtu.be/92-V68D-ilw)
 
 ## Getting Started
 
@@ -25,7 +26,7 @@ pip install -r requirements.txt
 ```
 
 ### 3. Add the model file
-Place your `fashion_mnist_model_quantized.tflite` file in the project directory.
+Place your `fashion_mnist_model.h5` file in the project directory.
 
 ### 4. Run the app
 ```bash
@@ -41,12 +42,13 @@ For Streamlit Community Cloud:
 ```
 ├── app.py
 ├── requirements.txt
-├── fashion_mnist_model_quantized.tflite
+├── fashion_mnist_model.h5
+├── Fashion_MNIST_Image_Classification_with_CNNs.ipynb
 └── README.md
 ```
 
 ## Model
-The app uses a quantized TensorFlow Lite model trained on the Fashion MNIST dataset. You can retrain or quantize your own model if needed.
+The app uses a standard Keras `.h5` model trained on the Fashion MNIST dataset. You can retrain or update your own model if needed.
 
 ## License
 This project is licensed under the MIT License.
